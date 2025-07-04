@@ -1,9 +1,10 @@
+ 
 #!/bin/bash
 
  
 userInputs(){
 
-    echo -e "\n\n****** Welecome to installation of the iPmart SSH Panel ****** \n"
+    echo -e "\n\n****** Welecome to installation of the SSH Panel ****** \n"
     printf "Default username is \e[33m${username}\e[0m, let it blank to use this username: "
     read usernameTmp
 
@@ -45,7 +46,7 @@ userInputs(){
 }
 
 getAppVersion(){
-    version=$(sudo curl -Ls "https://api.github.com/repos/ipmartnetwork/iPmart-SSH/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
+    version=$(sudo curl -Ls "https://api.github.com/repos/arifburs/ssh-panel/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
     echo $version;
 }
 
@@ -178,7 +179,7 @@ copyPanelRepo(){
         rm -rf /var/www/html/account
     fi
 
-   link=https://raw.githubusercontent.com/ipmartnetwork/iPmart-SSH/main/app.zip
+   link=https://raw.githubusercontent.com/arifburs/ssh-panel/main/app.zip
 
     if [[ -n "$link" ]]; then
         rm -fr /var/www/html/update.zip
@@ -262,7 +263,7 @@ configAppache(){
     serverPort=${panelPort##*=}
     ##Remove the "" marks from the variable as they will not be needed
     serverPort=${panelPort//'"'}
-     echo "<VirtualHost *:80>
+     echo "<VirtualHost *:8080>
         ServerAdmin webmaster@localhost
         DocumentRoot /var/www/html
 
@@ -293,7 +294,7 @@ configAppache(){
     
     ##Replace 'Virtual Hosts' and 'List' entries with the new port number
     sudo  sed -i.bak 's/.*NameVirtualHost.*/NameVirtualHost *:'$serverPort'/' /etc/apache2/ports.conf
-    echo "Listen 80
+    echo "Listen 8080
     Listen $serverPort
     <IfModule ssl_module>
         Listen 4443
@@ -307,7 +308,7 @@ configAppache(){
     
     ##Replace 'Virtual Hosts' and 'List' entries with the new port number
     sudo  sed -i.bak 's/.*NameVirtualHost.*/NameVirtualHost *:'$serverPort'/' /etc/apache2/ports.conf
-    echo "Listen 80
+    echo "Listen 8080
     Listen $serverPort
     <IfModule ssl_module>
         Listen 4443
@@ -453,7 +454,7 @@ ENDOFFILE
 }
 
 installationInfo(){
-    #link=https://raw.githubusercontent.com/ipmartnetwork/iPmart-SSH/main/app.zip
+    #link=https://raw.githubusercontent.com/arifburs/ssh-panel/main/app.zip
 
     #if [[ -n "$link" ]]; then
     #    rm -fr /var/www/html/update.zip
@@ -470,7 +471,7 @@ installationInfo(){
     #ln -s /etc/x-ui/x-ui.db /var/www/html/account/views/x-ui.txt
     clear
     echo -e "\n"
-    bannerText=$(curl -s https://raw.githubusercontent.com/ipmartnetwork/iPmart-SSH/main/ipmart.txt)
+    bannerText=$(curl -s https://raw.githubusercontent.com/arifburs/ssh-panel/main/ipmart.txt)
     printf "%s" "$bannerText"
     echo -e "\n"
     printf "Panel Link : $httpProtcol://${ipv4}:$panelPort/login"
@@ -500,7 +501,7 @@ sshPort=$(getSshPort)
 panelPort=$(getPanelPort)
 httpProtcol="http"
 panelPath=$(getPanelPath)
-nethogsLink=https://raw.githubusercontent.com/iPmartNetwork/iPmart-SSH/main/nethogs-json/install.sh
+nethogsLink=https://raw.githubusercontent.com/arifburs/ssh-panel/main/nethogs-json/install.sh
 checkRoot
 userInputs
 updateShhConfig

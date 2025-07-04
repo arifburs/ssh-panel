@@ -1,3 +1,4 @@
+ 
 #!/bin/sh
 
 sudo apt-get update -y
@@ -15,4 +16,3 @@ sudo iptables -A OUTPUT -m geoip -p tcp --destination-port 443 --dst-cc IR -j DR
 iptables-save
 clear
 echo -e "Blocked Port 80 and 443 Iran \n" 
-
