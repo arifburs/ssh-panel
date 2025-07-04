@@ -263,7 +263,7 @@ configAppache(){
     serverPort=${panelPort##*=}
     ##Remove the "" marks from the variable as they will not be needed
     serverPort=${panelPort//'"'}
-     echo "<VirtualHost *:8080>
+     echo "<VirtualHost *:80>
         ServerAdmin webmaster@localhost
         DocumentRoot /var/www/html
 
@@ -294,7 +294,7 @@ configAppache(){
     
     ##Replace 'Virtual Hosts' and 'List' entries with the new port number
     sudo  sed -i.bak 's/.*NameVirtualHost.*/NameVirtualHost *:'$serverPort'/' /etc/apache2/ports.conf
-    echo "Listen 8080
+    echo "Listen 80
     Listen $serverPort
     <IfModule ssl_module>
         Listen 4443
@@ -308,7 +308,7 @@ configAppache(){
     
     ##Replace 'Virtual Hosts' and 'List' entries with the new port number
     sudo  sed -i.bak 's/.*NameVirtualHost.*/NameVirtualHost *:'$serverPort'/' /etc/apache2/ports.conf
-    echo "Listen 8080
+    echo "Listen 80
     Listen $serverPort
     <IfModule ssl_module>
         Listen 4443
